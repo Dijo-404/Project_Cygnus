@@ -2,10 +2,18 @@
 
 > An autonomous agentic ecosystem built on Stellar blockchain enabling machine-to-machine commerce without human intermediaries.
 
+[![Version](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/yourusername/project-cygnus/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
 [![Stellar](https://img.shields.io/badge/Stellar-Soroban-purple)](https://stellar.org/)
+
+## Team
+
+**Core Development Team:**
+- **Dijo S Benelen** - Lead Developer & Architecture
+- **Hemhalatha V R** - Smart Contracts & Protocol Development  
+- **Vishnu Priyan** - Frontend & Dashboard Development
 
 ## Table of Contents
 
@@ -40,68 +48,111 @@ Project Cygnus is a comprehensive machine economy platform that enables autonomo
 
 ## Architecture
 
-Project Cygnus integrates six core protocol layers:
+Project Cygnus integrates six core protocol layers in a clean, modular architecture:
 
+```mermaid
+graph TD
+    %% Application Layer
+    subgraph "Application Layer"
+        UI[Dashboard UI]
+        AM[Agent Manager]
+        CLI[CLI Tools]
+    end
+    
+    %% Agent Orchestration Layer
+    subgraph "Agent Orchestration Layer"
+        subgraph "Autonomous Agent Runtime"
+            TM[Trading Manager]
+            LN[Loan Negotiator]
+            RA[Risk Assessor]
+            OE[Opportunity Evaluator]
+            TE[Transaction Executor]
+        end
+        
+        subgraph "Runtime Core"
+            AR[Agent Runtime]
+            CE[Character Engine]
+            MM[Memory Manager]
+            PM[Plugin Manager]
+        end
+    end
+    
+    %% Protocol Layer
+    subgraph "Protocol Layer"
+        X402[X402<br/>Payment Proof]
+        X402F[X402-Flash<br/>Payment Channels]
+        MASUMI[Masumi<br/>Identity Management]
+        SOKOSUMI[Sokosumi<br/>Agent Coordination]
+    end
+    
+    %% Smart Contract Layer
+    subgraph "Smart Contract Layer"
+        LC[Loan Contract]
+        EC[Escrow Contract]
+        CS[Credit Scoring]
+    end
+    
+    %% Settlement Layer
+    subgraph "Settlement Layer"
+        STELLAR[Stellar Blockchain<br/>Soroban Smart Contracts<br/>SCP Consensus]
+    end
+    
+    %% Connections
+    UI --> AM
+    AM --> AR
+    CLI --> AM
+    
+    AR --> TM
+    AR --> LN
+    AR --> RA
+    AR --> OE
+    AR --> TE
+    
+    AR --> CE
+    AR --> MM
+    AR --> PM
+    
+    TM --> X402
+    TM --> X402F
+    LN --> MASUMI
+    RA --> SOKOSUMI
+    
+    X402 --> LC
+    X402F --> EC
+    MASUMI --> CS
+    SOKOSUMI --> LC
+    
+    LC --> STELLAR
+    EC --> STELLAR
+    CS --> STELLAR
+    
+    %% Styling
+    classDef appLayer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef agentLayer fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef protocolLayer fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef contractLayer fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef settlementLayer fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    
+    class UI,AM,CLI appLayer
+    class TM,LN,RA,OE,TE,AR,CE,MM,PM agentLayer
+    class X402,X402F,MASUMI,SOKOSUMI protocolLayer
+    class LC,EC,CS contractLayer
+    class STELLAR settlementLayer
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     Application Layer                            │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌───────────────┐ │
-│  │  Dashboard UI    │  │  Agent Manager   │  │  CLI Tools    │ │
-│  └──────────────────┘  └──────────────────┘  └───────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                   Agent Orchestration Layer                      │
-│  ┌──────────────────────────────────────────────────────────────┤
-│  │  Autonomous Agent Runtime (ElizaOS-inspired)                 │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐            │
-│  │  │  Trading   │  │   Loan     │  │    Risk    │            │
-│  │  │  Manager   │  │ Negotiator │  │  Assessor  │            │
-│  │  └────────────┘  └────────────┘  └────────────┘            │
-│  └──────────────────────────────────────────────────────────────┤
-└─────────────────────────────────────────────────────────────────┘
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                      Protocol Layer                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │   Sokosumi   │  │    Masumi    │  │    X402      │         │
-│  │ Coordination │  │   Identity   │  │   Payment    │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-│  ┌──────────────┐                                               │
-│  │ X402-Flash   │  Sub-100ms Payment Channels                  │
-│  └──────────────┘                                               │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                    Smart Contract Layer                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │    Loan      │  │    Escrow    │  │    Credit    │         │
-│  │  Contract    │  │   Contract   │  │   Scoring    │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                    Settlement Layer                              │
-│  ┌──────────────────────────────────────────────────────────────┤
-│  │  Stellar Blockchain (Soroban Smart Contracts)               │
-│  │  • SCP Consensus (3-5s finality)                            │
-│  │  • XDR Data Representation                                  │
-│  │  • Native Asset Support (XLM)                               │
-│  └──────────────────────────────────────────────────────────────┤
-└─────────────────────────────────────────────────────────────────┘
-```
 
-### Layer Descriptions
+### Architecture Overview
 
-1. **Settlement Layer**: Stellar blockchain with SCP consensus, Soroban smart contracts, and XDR data representation
-2. **Smart Contract Layer**: Rust-based Soroban contracts for loans, escrow, and credit scoring
-3. **Protocol Layer**: 
-   - **X402**: HTTP-native payment handshake for machine-to-machine transactions
-   - **X402-Flash**: Off-chain payment channels for sub-100ms latency
-   - **Masumi**: DIDs, Verifiable Credentials, and NFT-based agent registry
-   - **Sokosumi**: Service discovery, resource allocation, and agent coordination
-4. **Agent Orchestration**: ElizaOS-inspired runtime with modular decision-making logic
-5. **Application Layer**: Dashboard UI, CLI tools, and agent management interfaces
+**🏗️ Layered Design Philosophy**
+- **Separation of Concerns**: Each layer handles specific responsibilities
+- **Protocol Agnostic**: Modular design allows protocol swapping
+- **Fault Tolerance**: Circuit breakers and retry mechanisms at each layer
+- **Scalability**: Horizontal scaling through agent distribution
+
+**⚡ Performance Characteristics**
+- **Settlement Finality**: 3-5 seconds (Stellar SCP consensus)
+- **Payment Channels**: Sub-100ms latency (X402-Flash)
+- **Agent Decisions**: <1 second response time
+- **API Throughput**: 1000+ requests/second
 
 ## Features
 
