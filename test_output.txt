@@ -1,0 +1,279 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/home/dj/Projects/Project_Cygnus[39m
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould initialize with empty agent registry
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould initialize agents from configuration
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:76:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould initialize agents from configuration
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould initialize multiple agents
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:118:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould initialize multiple agents
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould throw error if agent initialization fails (invalid config)
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:143:28
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2minitialization[2m > [22m[2mshould throw error if agent initialization fails (invalid config)
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgents[2m > [22m[2mshould return empty array when no agents
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgents[2m > [22m[2mshould return all agents
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:174:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgents[2m > [22m[2mshould return all agents
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgent[2m > [22m[2mshould return undefined for non-existent agent
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgent[2m > [22m[2mshould return agent by ID
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:205:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgent[2m > [22m[2mshould return agent by ID
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgentStatus[2m > [22m[2mshould return null for non-existent agent
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgentStatus[2m > [22m[2mshould return agent status
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:236:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAgentStatus[2m > [22m[2mshould return agent status
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAllAgentStatuses[2m > [22m[2mshould return empty array when no agents
+[22m[39m[AgentManager] Stopped all agents
+
+[90mstderr[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAllAgentStatuses[2m > [22m[2mshould return statuses for all agents
+[22m[39m[AgentManager] Failed to initialize agent agent-1: TypeError: encoded argument must be of type String
+    at decodeCheck [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:346:11[90m)[39m
+    at Function.decodeEd25519SecretSeed [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/strkey.js:110:14[90m)[39m
+    at Function.fromSecret [90m(/home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@stellar/stellar-base[24m/lib/keypair.js:245:38[90m)[39m
+    at new PolicySigner [90m(/home/dj/Projects/Project_Cygnus/[39msrc/stellar/PolicySigner.ts:54:40[90m)[39m
+    at new AutonomousAgent [90m(/home/dj/Projects/Project_Cygnus/[39magents/AutonomousAgent.ts:99:25[90m)[39m
+    at AgentManager.initialize [90m(/home/dj/Projects/Project_Cygnus/[39msrc/AgentManager.ts:100:23[90m)[39m
+    at [90m/home/dj/Projects/Project_Cygnus/[39mtests/unit/AgentManager.test.ts:267:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///home/dj/Projects/Project_Cygnus/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+
+[90mstdout[2m | tests/unit/AgentManager.test.ts[2m > [22m[2mAgentManager[2m > [22m[2mgetAllAgentStatuses[2m > [22m[2mshould return statuses for all agents
+[22m[39m[AgentManager] Stopped all agents
+
+ [31m❯[39m tests/unit/AgentManager.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m7 failed[39m[2m)[22m[32m 39[2mms[22m[39m
+       [32m✓[39m should initialize with empty agent registry[32m 8[2mms[22m[39m
+[31m       [31m×[31m should initialize agents from configuration[39m[32m 13[2mms[22m[39m
+[31m       [31m×[31m should initialize multiple agents[39m[32m 2[2mms[22m[39m
+       [32m✓[39m should throw error if agent initialization fails (invalid config)[32m 2[2mms[22m[39m
+       [32m✓[39m should return empty array when no agents[32m 1[2mms[22m[39m
+[31m       [31m×[31m should return all agents[39m[32m 2[2mms[22m[39m
+[31m       [31m×[31m should return undefined for non-existent agent[39m[32m 4[2mms[22m[39m
+[31m       [31m×[31m should return agent by ID[39m[32m 1[2mms[22m[39m
+       [32m✓[39m should return null for non-existent agent[32m 1[2mms[22m[39m
+[31m       [31m×[31m should return agent status[39m[32m 1[2mms[22m[39m
+       [32m✓[39m should return empty array when no agents[32m 1[2mms[22m[39m
+[31m       [31m×[31m should return statuses for all agents[39m[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 7 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22minitialization[2m > [22mshould initialize agents from configuration
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m76:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22minitialization[2m > [22mshould initialize multiple agents
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m118:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22mgetAgents[2m > [22mshould return all agents
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m174:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22mgetAgent[2m > [22mshould return undefined for non-existent agent
+[31m[1mAssertionError[22m: expected null to be undefined[39m
+
+[32m- Expected:[39m 
+undefined
+
+[31m+ Received:[39m 
+null
+
+[36m [2m❯[22m tests/unit/AgentManager.test.ts:[2m183:53[22m[39m
+    [90m181| [39m  [34mdescribe[39m([32m'getAgent'[39m[33m,[39m () [33m=>[39m {
+    [90m182| [39m    [34mit[39m([32m'should return undefined for non-existent agent'[39m[33m,[39m () [33m=>[39m {
+    [90m183| [39m      [34mexpect[39m(agentManager[33m.[39m[34mgetAgent[39m([32m'non-existent'[39m))[33m.[39m[34mtoBeUndefined[39m()[33m;[39m
+    [90m   | [39m                                                    [31m^[39m
+    [90m184| [39m    })[33m;[39m
+    [90m185| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22mgetAgent[2m > [22mshould return agent by ID
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m205:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22mgetAgentStatus[2m > [22mshould return agent status
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m236:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/AgentManager.test.ts[2m > [22mAgentManager[2m > [22mgetAllAgentStatuses[2m > [22mshould return statuses for all agents
+[31m[1mTypeError[22m: encoded argument must be of type String[39m
+[90m [2m❯[22m decodeCheck node_modules/@stellar/stellar-base/lib/strkey.js:[2m346:11[22m[39m
+[90m [2m❯[22m Function.decodeEd25519SecretSeed node_modules/@stellar/stellar-base/lib/strkey.js:[2m110:14[22m[39m
+[90m [2m❯[22m Function.fromSecret node_modules/@stellar/stellar-base/lib/keypair.js:[2m245:38[22m[39m
+[36m [2m❯[22m new PolicySigner src/stellar/PolicySigner.ts:[2m54:40[22m[39m
+    [90m 52| [39m  [34mconstructor[39m(secretKey[33m:[39m string) {
+    [90m 53| [39m    [35mthis[39m[33m.[39msecretKey [33m=[39m secretKey[33m;[39m
+    [90m 54| [39m    [35mconst[39m keypair [33m=[39m [33mStellarSdk[39m[33m.[39m[33mKeypair[39m[33m.[39m[34mfromSecret[39m(secretKey)[33m;[39m
+    [90m   | [39m                                       [31m^[39m
+    [90m 55| [39m    [35mthis[39m[33m.[39mpublicKey [33m=[39m keypair[33m.[39m[34mpublicKey[39m()[33m;[39m
+    [90m 56| [39m  }
+[90m [2m❯[22m new AutonomousAgent agents/AutonomousAgent.ts:[2m99:25[22m[39m
+[90m [2m❯[22m AgentManager.initialize src/AgentManager.ts:[2m100:23[22m[39m
+[90m [2m❯[22m tests/unit/AgentManager.test.ts:[2m267:26[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 13:22:34
+[2m   Duration [22m 975ms[2m (transform 403ms, setup 0ms, import 715ms, tests 39ms, environment 0ms)[22m
+

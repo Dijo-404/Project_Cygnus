@@ -74,7 +74,7 @@ export class StellarClient {
         );
         break;
 
-      case 'contract_invoke':
+      case 'contract_invoke': {
         if (!params.contractId || !params.functionName) {
           throw new Error('Contract invoke requires contractId and functionName');
         }
@@ -82,6 +82,7 @@ export class StellarClient {
         const contract = new StellarSdk.Contract(params.contractId);
         txBuilder.addOperation(contract.call(params.functionName, ...(params.args || [])));
         break;
+      }
 
       case 'create_account':
         if (!params.destination || !params.amount) {
@@ -132,8 +133,8 @@ export class StellarClient {
     stellarTx.sign(keypair);
 
     // Get signature - access signatures array directly
-    const signature = stellarTx.signatures.length > 0 
-      ? stellarTx.signatures[0].signature().toString('base64') 
+    const signature = stellarTx.signatures.length > 0
+      ? stellarTx.signatures[0].signature().toString('base64')
       : '';
 
     // Get hash

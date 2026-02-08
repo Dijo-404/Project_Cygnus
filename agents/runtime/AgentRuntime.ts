@@ -43,12 +43,18 @@ export class AgentRuntime {
   private actions: Map<string, Action> = new Map();
   private evaluators: Map<string, Evaluator> = new Map();
 
-  constructor(config: AgentConfig) {
+  constructor(
+    config: AgentConfig,
+    characterEngine?: CharacterEngine,
+    memoryManager?: MemoryManager,
+    pluginManager?: PluginManager,
+    stellarClient?: any
+  ) {
     this.config = config;
-    this.memoryManager = new MemoryManager();
-    this.pluginManager = new PluginManager();
-    this.characterEngine = new CharacterEngine();
-    
+    this.memoryManager = memoryManager || new MemoryManager();
+    this.pluginManager = pluginManager || new PluginManager();
+    this.characterEngine = characterEngine || new CharacterEngine();
+
     this.state = {
       isRunning: false,
       balance: 0,
@@ -109,7 +115,8 @@ export class AgentRuntime {
    */
   async stop(): Promise<void> {
     if (!this.state.isRunning) {
-      throw new Error('Agent is not running');
+      console.warn('Agent is not running');
+      return;
     }
 
     console.log('Stopping agent...');
@@ -206,7 +213,7 @@ export class AgentRuntime {
    */
   async recordTransaction(tx: Transaction, outcome: TxOutcome): Promise<void> {
     await this.memoryManager.recordTransaction(tx, outcome);
-    
+
     // Update state
     this.state.transactionCount++;
     this.state.lastActivity = Date.now();
@@ -232,6 +239,13 @@ export class AgentRuntime {
    */
   getState(): AgentState {
     return { ...this.state };
+  }
+
+  /**
+   * Get agent configuration
+   */
+  getConfig(): AgentConfig {
+    return this.config;
   }
 
   /**
@@ -294,10 +308,10 @@ export class AgentRuntime {
     try {
       const data = fs.readFileSync(filePath, 'utf-8');
       const character = JSON.parse(data) as CharacterConfig;
-      
+
       // Validate character configuration
       this.validateCharacter(character);
-      
+
       return character;
     } catch (error) {
       throw new Error(`Failed to load character: ${error}`);

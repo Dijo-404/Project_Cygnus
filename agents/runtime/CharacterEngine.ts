@@ -37,14 +37,14 @@ export class CharacterEngine {
   ): Promise<Decision> {
     // Calculate opportunity score based on character preferences
     const score = this.calculateOpportunityScore(opportunity, character);
-    
+
     // Apply risk tolerance
     const riskAdjustedScore = score * (1 - character.personality.riskTolerance * 0.5);
-    
+
     // Make decision based on score
     let action: 'accept' | 'reject' | 'negotiate';
     let reasoning: string;
-    
+
     if (riskAdjustedScore > 0.7) {
       action = 'accept';
       reasoning = `High confidence opportunity (score: ${riskAdjustedScore.toFixed(2)}) aligns with ${character.personality.negotiationStyle} strategy`;
@@ -225,13 +225,13 @@ export class CharacterEngine {
     character: CharacterConfig
   ): number {
     const strategy = character.lendingStrategy;
-    
+
     // Check if terms match preferences
     // This is simplified - in production would check actual loan terms
     let score = 0.5;
 
     // Adjust based on interest rate model
-    score *= (strategy.baseRate / 1000); // Normalize
+    score *= (strategy.interestRateModel.baseRate / 1000); // Normalize
 
     return Math.min(score, 1.0);
   }
@@ -245,10 +245,10 @@ export class CharacterEngine {
   ): number {
     // Evaluate if borrowing makes sense given economic goals
     const targetReturn = character.economicGoals.targetReturn;
-    
+
     // Simplified evaluation
     let score = 0.5;
-    
+
     if (opportunity.terms && opportunity.terms.interestRate) {
       // Only borrow if expected return exceeds interest rate
       if (targetReturn > opportunity.terms.interestRate) {
@@ -259,5 +259,11 @@ export class CharacterEngine {
     }
 
     return score;
+  }
+  /**
+   * Get character configuration
+   */
+  getCharacter(): CharacterConfig | null {
+    return this.character;
   }
 }

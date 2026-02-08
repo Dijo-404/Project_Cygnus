@@ -74,14 +74,29 @@ export class AutonomousAgent {
 
   constructor(
     config: AgentConfig,
-    stellarClient: StellarClient,
-    didManager: DIDManager,
-    coordinator: SokosumiCoordinator
+    stellarClient?: StellarClient,
+    didManager?: DIDManager,
+    coordinator?: SokosumiCoordinator
   ) {
     // Initialize core components
-    this.stellarClient = stellarClient;
-    this.didManager = didManager;
-    this.coordinator = coordinator;
+    this.stellarClient = stellarClient || new StellarClient({
+      network: config.stellarNetwork,
+      horizonUrl: config.stellarNetwork === 'testnet'
+        ? 'https://horizon-testnet.stellar.org'
+        : 'https://horizon.stellar.org'
+    });
+
+    this.didManager = didManager || new DIDManager({
+      didMethod: 'stellar',
+      trustedIssuers: [],
+      stellarNetwork: config.stellarNetwork,
+    }, this.stellarClient);
+
+    this.coordinator = coordinator || new SokosumiCoordinator({
+      negotiationTimeout: 300,
+      maxConcurrentNegotiations: 10,
+      reputationThreshold: 0.5
+    });
 
     // Initialize runtime components
     this.memoryManager = new MemoryManager('./data/memory');
@@ -96,7 +111,7 @@ export class AutonomousAgent {
     );
 
     // Initialize policy signer
-    this.policySigner = new PolicySigner();
+    this.policySigner = new PolicySigner(config.secretKey!);
 
     // Initialize credential manager and registry
     this.credentialManager = new CredentialManager(
@@ -299,7 +314,7 @@ export class AutonomousAgent {
    */
   async getLoan(amount: number, collateral: number) {
     const lenders = await this.loanNegotiator.searchLenders(amount);
-    
+
     if (lenders.length === 0) {
       return null;
     }
@@ -317,7 +332,7 @@ export class AutonomousAgent {
    */
   async buyItem(item: string, quantity: number, maxPrice: number) {
     const sellers = await this.tradingManager.searchSellers(item);
-    
+
     if (sellers.length === 0) {
       return null;
     }
@@ -337,7 +352,7 @@ export class AutonomousAgent {
    */
   async sellItem(item: string, quantity: number, price: number) {
     const buyers = await this.tradingManager.searchBuyers(item);
-    
+
     if (buyers.length === 0) {
       return null;
     }

@@ -106,6 +106,11 @@ dev:
 	@echo "Starting development server..."
 	@pnpm run dev
 
+# Run development server with Conda environment
+dev-conda:
+	@echo "Starting development server with Conda environment..."
+	@scripts/start_conda.sh npm run dev
+
 # Check contract sizes
 check-sizes:
 	@echo "Checking contract sizes..."

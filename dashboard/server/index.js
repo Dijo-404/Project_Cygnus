@@ -38,6 +38,42 @@ let contracts = [
   { name: 'Escrow', status: 'deployed', address: 'EXXX...XXXX', calls: 1247 },
 ];
 
+let agents = [
+  {
+    id: 'agent-1',
+    name: 'Trading Agent Alpha',
+    did: 'did:stellar:GABC...WXYZ',
+    address: 'GABC...WXYZ',
+    status: 'running',
+    balance: '1000.0000000',
+    activeLoans: 2,
+    activeEscrows: 1,
+    uptime: 86400
+  },
+  {
+    id: 'agent-2',
+    name: 'Lending Agent Beta',
+    did: 'did:stellar:GDEF...UVWX',
+    address: 'GDEF...UVWX',
+    status: 'running',
+    balance: '500.0000000',
+    activeLoans: 5,
+    activeEscrows: 0,
+    uptime: 43200
+  },
+  {
+    id: 'agent-3',
+    name: 'Risk Agent Gamma',
+    did: 'did:stellar:GHIJ...RSTU',
+    address: 'GHIJ...RSTU',
+    status: 'idle',
+    balance: '250.0000000',
+    activeLoans: 0,
+    activeEscrows: 3,
+    uptime: 21600
+  },
+];
+
 // Health check endpoint
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -60,15 +96,48 @@ app.get('/api/contracts', (_req, res) => {
   res.json(contracts);
 });
 
+app.get('/api/agents', (_req, res) => {
+  res.json({ agents });
+});
+
+app.get('/api/agents/:id', (req, res) => {
+  const agent = agents.find(a => a.id === req.params.id);
+  if (!agent) {
+    return res.status(404).json({ error: 'Agent not found' });
+  }
+  res.json(agent);
+});
+
+app.post('/api/agents/:id/fund', (req, res) => {
+  const agent = agents.find(a => a.id === req.params.id);
+  if (!agent) {
+    return res.status(404).json({ error: 'Agent not found' });
+  }
+
+  const { amount } = req.body;
+  if (!amount) {
+    return res.status(400).json({ error: 'Amount is required' });
+  }
+
+  // Simulate funding
+  const currentBalance = parseFloat(agent.balance);
+  const fundAmount = parseFloat(amount);
+  agent.balance = (currentBalance + fundAmount).toFixed(7);
+
+  addLog('info', `Agent ${agent.id} funded with ${amount} XLM`);
+
+  res.json({ success: true, newBalance: agent.balance });
+});
+
 app.post('/api/build', async (_req, res) => {
   try {
     addLog('info', 'Starting contract build...');
-    
+
     const { stdout } = await execAsync('make build-contracts', {
       cwd: '..',
       timeout: 60000,
     });
-    
+
     addLog('info', 'Contracts built successfully');
     res.json({ success: true, message: 'Contracts built successfully', output: stdout });
   } catch (error) {
@@ -81,12 +150,12 @@ app.post('/api/build', async (_req, res) => {
 app.post('/api/test', async (_req, res) => {
   try {
     addLog('info', 'Running tests...');
-    
+
     const { stdout } = await execAsync('npm test', {
       cwd: '..',
       timeout: 120000,
     });
-    
+
     addLog('info', 'Tests completed successfully');
     res.json({ success: true, message: 'All tests passed', output: stdout });
   } catch (error) {
@@ -98,10 +167,10 @@ app.post('/api/test', async (_req, res) => {
 
 app.post('/api/deploy', async (req, res) => {
   const { target } = req.body;
-  
+
   try {
     addLog('info', `Starting deployment to ${target}...`);
-    
+
     let command;
     switch (target) {
       case 'testnet':
@@ -116,15 +185,15 @@ app.post('/api/deploy', async (req, res) => {
       default:
         throw new Error('Invalid deployment target');
     }
-    
+
     const { stdout } = await execAsync(command, {
       cwd: '..',
       timeout: 180000,
     });
-    
+
     addLog('info', `Deployment to ${target} completed successfully`);
     systemStatus.contracts.deployed = 3;
-    
+
     res.json({ success: true, message: `Deployed to ${target} successfully`, output: stdout });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -142,7 +211,7 @@ function addLog(level, message) {
   };
   logs.unshift(log);
   if (logs.length > 100) logs.pop();
-  
+
   // Broadcast to WebSocket clients
   broadcastToClients({ type: 'log', payload: log });
 }
@@ -161,16 +230,16 @@ const clients = new Set();
 wss.on('connection', (ws) => {
   console.log('Client connected');
   clients.add(ws);
-  
+
   // Send initial data
   ws.send(JSON.stringify({ type: 'status', payload: systemStatus }));
   ws.send(JSON.stringify({ type: 'metrics', payload: metrics }));
-  
+
   ws.on('close', () => {
     console.log('Client disconnected');
     clients.delete(ws);
   });
-  
+
   ws.on('error', (error) => {
     console.error('WebSocket error:', error);
     clients.delete(ws);
@@ -196,20 +265,20 @@ const metricsInterval = setInterval(() => {
   metrics.settlement.push(3000 + Math.random() * 2000);
   metrics.latency.push(40 + Math.random() * 30);
   metrics.errors.push(Math.floor(Math.random() * 5));
-  
+
   if (metrics.settlement.length > 20) metrics.settlement.shift();
   if (metrics.latency.length > 20) metrics.latency.shift();
   if (metrics.errors.length > 20) metrics.errors.shift();
-  
+
   // Update transaction count
   systemStatus.transactions.count += Math.floor(Math.random() * 5);
   systemStatus.transactions.rate = Math.floor(10 + Math.random() * 10);
-  
+
   // Update contract calls
   contracts.forEach(contract => {
     contract.calls += Math.floor(Math.random() * 3);
   });
-  
+
   // Broadcast updates
   broadcastToClients({ type: 'status', payload: systemStatus });
   broadcastToClients({ type: 'metrics', payload: metrics });
@@ -224,10 +293,10 @@ const logsInterval = setInterval(() => {
     'Credit score calculated',
     'Loan repayment received',
   ];
-  
+
   const levels = ['info', 'info', 'info', 'warn', 'debug'];
   const randomIndex = Math.floor(Math.random() * messages.length);
-  
+
   addLog(levels[randomIndex], messages[randomIndex]);
 }, 8000);
 
@@ -236,7 +305,7 @@ process.on('SIGTERM', () => {
   console.log('SIGTERM received, shutting down gracefully...');
   clearInterval(metricsInterval);
   clearInterval(logsInterval);
-  
+
   server.close(() => {
     console.log('Server closed');
     process.exit(0);
@@ -247,7 +316,7 @@ process.on('SIGINT', () => {
   console.log('SIGINT received, shutting down gracefully...');
   clearInterval(metricsInterval);
   clearInterval(logsInterval);
-  
+
   server.close(() => {
     console.log('Server closed');
     process.exit(0);

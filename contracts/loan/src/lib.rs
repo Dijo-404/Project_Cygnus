@@ -293,9 +293,9 @@ mod test {
     use super::*;
     use soroban_sdk::{testutils::{Address as _, Ledger}, token, Address, Env};
 
-    fn create_token_contract<'a>(env: &Env, admin: &Address) -> token::Client<'a> {
+    fn create_token_contract<'a>(env: &Env, admin: &Address) -> token::StellarAssetClient<'a> {
         let contract_id = env.register_stellar_asset_contract(admin.clone());
-        token::Client::new(env, &contract_id)
+        token::StellarAssetClient::new(env, &contract_id)
     }
 
     #[test]

@@ -17,13 +17,13 @@ export class WalletService {
   private state: WalletState;
   private server: StellarSdk.Horizon.Server;
 
-  constructor() {
+  constructor(storageService?: StorageService) {
     this.providers = new Map();
     this.providers.set('freighter', new FreighterAdapter());
     this.providers.set('albedo', new AlbedoAdapter());
-    
-    this.storageService = new StorageService();
-    
+
+    this.storageService = storageService || new StorageService();
+
     this.state = {
       isConnected: false,
       connection: null,
@@ -64,7 +64,7 @@ export class WalletService {
    */
   async connect(providerName: WalletProviderType): Promise<WalletConnection> {
     const provider = this.providers.get(providerName);
-    
+
     if (!provider) {
       throw new Error(`Wallet provider ${providerName} not found`);
     }
@@ -145,12 +145,12 @@ export class WalletService {
    * Fetch XLM balance for a public key
    * 
    * @param publicKey - Stellar public key
-   * @returns Balance in stroops as string
+   * @returns Balance in XLM as string
    */
   async fetchBalance(publicKey: string): Promise<string> {
     try {
       const account = await this.server.loadAccount(publicKey);
-      
+
       // Find XLM balance (native asset)
       const xlmBalance = account.balances.find(
         (balance) => balance.asset_type === 'native'
@@ -160,19 +160,16 @@ export class WalletService {
         return '0';
       }
 
-      // Convert to stroops (1 XLM = 10,000,000 stroops)
-      const balanceInXlm = parseFloat(xlmBalance.balance);
-      const balanceInStroops = Math.floor(balanceInXlm * 10_000_000);
-
-      return balanceInStroops.toString();
+      // Return balance in XLM directly
+      return xlmBalance.balance;
     } catch (error) {
       console.error('Failed to fetch balance:', error);
-      
+
       // If account doesn't exist, return 0
       if (error instanceof Error && error.message.includes('404')) {
         return '0';
       }
-      
+
       throw new Error('Failed to fetch balance');
     }
   }
@@ -192,14 +189,14 @@ export class WalletService {
       }
 
       const storedConnection = this.storageService.getWalletConnection();
-      
+
       if (!storedConnection) {
         return null;
       }
 
       // Get the provider
       const provider = this.providers.get(storedConnection.provider);
-      
+
       if (!provider) {
         console.warn('Stored provider not found:', storedConnection.provider);
         this.storageService.clearWalletConnection();
@@ -216,7 +213,7 @@ export class WalletService {
       // Verify the connection is still valid by fetching the public key
       try {
         const currentPublicKey = await provider.getPublicKey();
-        
+
         // If the public key changed, clear the stored connection
         if (currentPublicKey !== storedConnection.publicKey) {
           console.warn('Wallet address changed');
@@ -272,7 +269,7 @@ export class WalletService {
 
     const balance = await this.fetchBalance(this.state.connection.publicKey);
     this.state.balance = balance;
-    
+
     return balance;
   }
 }

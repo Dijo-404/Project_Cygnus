@@ -75,3 +75,23 @@ export interface VerifiablePresentation {
   verifiableCredential: VerifiableCredential[];
   proof: CredentialProof;
 }
+
+/**
+ * Decentralized Identifier (DID) string type
+ */
+export type DID = string;
+
+/**
+ * Agent metadata for identity management
+ */
+export interface AgentMetadata {
+  did: DID;
+  name: string;
+  description?: string;
+  capabilities: string[];
+  endpoints?: ServiceEndpoint[];
+  publicKey: string;
+  createdAt: number;
+  updatedAt: number;
+}
+

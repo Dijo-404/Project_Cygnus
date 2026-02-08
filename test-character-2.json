@@ -1,0 +1,49 @@
+{
+    "name": "Test Agent",
+    "personality": {
+        "riskTolerance": 0.5,
+        "negotiationStyle": "balanced",
+        "learningRate": 0.1
+    },
+    "economicGoals": {
+        "targetReturn": 10,
+        "maxLossThreshold": 5,
+        "preferredAssets": [
+            "XLM",
+            "USDC"
+        ]
+    },
+    "tradingStrategy": {
+        "buySignals": [
+            {
+                "indicator": "price_momentum",
+                "threshold": 0.7,
+                "weight": 0.4
+            }
+        ],
+        "sellSignals": [
+            {
+                "indicator": "price_momentum",
+                "threshold": 0.3,
+                "weight": 0.4
+            }
+        ],
+        "positionSizing": "proportional"
+    },
+    "lendingStrategy": {
+        "minCreditScore": 600,
+        "maxLoanToValue": 0.7,
+        "preferredDuration": 2592000,
+        "interestRateModel": {
+            "baseRate": 500,
+            "creditScoreMultiplier": 0.5,
+            "durationMultiplier": 0.1,
+            "collateralDiscount": 0.2
+        }
+    },
+    "spendingLimits": {
+        "maxSingleTransaction": 1000,
+        "dailyLimit": 5000,
+        "weeklyLimit": 20000
+    }
+}

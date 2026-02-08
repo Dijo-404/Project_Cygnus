@@ -65,9 +65,9 @@ export function decodeTransaction(xdrTx: any): Transaction {
 
     const timeBounds = xdrTx.timeBounds()
       ? {
-          minTime: xdrTx.timeBounds().minTime().toString(),
-          maxTime: xdrTx.timeBounds().maxTime().toString(),
-        }
+        minTime: xdrTx.timeBounds().minTime().toString(),
+        maxTime: xdrTx.timeBounds().maxTime().toString(),
+      }
       : undefined;
 
     const memo = decodeMemo(xdrTx.memo());
@@ -103,9 +103,9 @@ export function decodeTransactionFromXDR(xdrString: string): Transaction {
         seqNum: innerTx.sequence,
         timeBounds: innerTx.timeBounds
           ? {
-              minTime: innerTx.timeBounds.minTime,
-              maxTime: innerTx.timeBounds.maxTime,
-            }
+            minTime: innerTx.timeBounds.minTime,
+            maxTime: innerTx.timeBounds.maxTime,
+          }
           : undefined,
         memo: {
           type: getMemoType(innerTx.memo),
@@ -128,9 +128,9 @@ export function decodeTransactionFromXDR(xdrString: string): Transaction {
       seqNum: tx.sequence,
       timeBounds: tx.timeBounds
         ? {
-            minTime: tx.timeBounds.minTime,
-            maxTime: tx.timeBounds.maxTime,
-          }
+          minTime: tx.timeBounds.minTime,
+          maxTime: tx.timeBounds.maxTime,
+        }
         : undefined,
       memo: {
         type: getMemoType(tx.memo),
@@ -254,21 +254,23 @@ function decodeAsset(xdrAsset: any): Asset {
         type: AssetType.ASSET_TYPE_NATIVE,
       };
 
-    case 'assetTypeCreditAlphanum4':
+    case 'assetTypeCreditAlphanum4': {
       const alpha4 = xdrAsset.alphaNum4();
       return {
         type: AssetType.ASSET_TYPE_CREDIT_ALPHANUM4,
         code: alpha4.assetCode().toString('utf8').replace(/\0/g, ''),
         issuer: StellarSdk.StrKey.encodeEd25519PublicKey(alpha4.issuer().ed25519()),
       };
+    }
 
-    case 'assetTypeCreditAlphanum12':
+    case 'assetTypeCreditAlphanum12': {
       const alpha12 = xdrAsset.alphaNum12();
       return {
         type: AssetType.ASSET_TYPE_CREDIT_ALPHANUM12,
         code: alpha12.assetCode().toString('utf8').replace(/\0/g, ''),
         issuer: StellarSdk.StrKey.encodeEd25519PublicKey(alpha12.issuer().ed25519()),
       };
+    }
 
     default:
       throw new Error(`Unsupported asset type: ${assetType.name}`);

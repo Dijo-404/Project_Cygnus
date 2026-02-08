@@ -240,6 +240,9 @@ impl CreditScoringContract {
             return 500; // Default score for new accounts
         }
 
+        // Base Score (150 points) - ensures active accounts don't drop too low
+        let base_score = 150;
+
         // Payment History Score (35% weight) - 0 to 350 points
         // Using fixed-point arithmetic: multiply by 1000 to avoid floating point
         let success_rate = if profile.total_transactions > 0 {
@@ -253,12 +256,13 @@ impl CreditScoringContract {
         let default_penalty = (profile.defaults as u32) * 100;
 
         // Credit Utilization Score (30% weight) - 0 to 300 points
-        // Based on total volume (higher volume = better score, up to a point)
+        // Based on total volume (higher volume = better score)
+        // Revised: 1 unit = 100,000 stroops (0.01 XLM)
         let volume_score = if profile.total_volume > 0 {
-            let volume_millions = (profile.total_volume / 10_000_000) as u32; // Convert to millions of stroops
-            u32::min(volume_millions * 10, 300) // Cap at 300 points
+            let volume_units = (profile.total_volume / 100_000) as u32; 
+            u32::min(volume_units, 300) // Cap at 300 points
         } else {
-            150 // Neutral score for no volume
+            0
         };
 
         // Account Age Score (15% weight) - 0 to 150 points
@@ -271,7 +275,8 @@ impl CreditScoringContract {
         let tx_count_score = u32::min(profile.total_transactions as u32 * 2, 200);
 
         // Calculate total score
-        let total_score = payment_history_score
+        let total_score = base_score
+            + payment_history_score
             + volume_score
             + account_age_score
             + tx_count_score;

@@ -110,7 +110,7 @@ export class CygnusServer {
       const pathParts = url.substring('/agents/'.length).split('/');
       const agentId = pathParts[0];
       const action = pathParts[1];
-      
+
       if (action === 'fund' && req.method === 'POST') {
         this.handleFundAgent(agentId, req, res);
       } else if (!action) {
@@ -186,7 +186,7 @@ export class CygnusServer {
   private handleAgents(_req: http.IncomingMessage, res: http.ServerResponse): void {
     if (!this.agentManager) {
       res.writeHead(503, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ 
+      res.end(JSON.stringify({
         error: 'Agent manager not initialized',
         agents: []
       }));
@@ -195,7 +195,7 @@ export class CygnusServer {
 
     try {
       const agentStatuses = this.agentManager.getAllAgentStatuses();
-      
+
       // Format response according to design spec
       const agents = agentStatuses.map(status => ({
         id: status.id,
@@ -213,7 +213,7 @@ export class CygnusServer {
     } catch (error) {
       console.error('[Server] Error handling /agents request:', error);
       res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ 
+      res.end(JSON.stringify({
         error: 'Internal server error',
         agents: []
       }));
@@ -226,7 +226,7 @@ export class CygnusServer {
   private handleAgentById(agentId: string, _req: http.IncomingMessage, res: http.ServerResponse): void {
     if (!this.agentManager) {
       res.writeHead(503, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ 
+      res.end(JSON.stringify({
         error: 'Agent manager not initialized'
       }));
       return;
@@ -234,10 +234,10 @@ export class CygnusServer {
 
     try {
       const agentStatus = this.agentManager.getAgentStatus(agentId);
-      
+
       if (!agentStatus) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ 
+        res.end(JSON.stringify({
           error: `Agent with ID '${agentId}' not found`
         }));
         return;
@@ -249,7 +249,7 @@ export class CygnusServer {
     } catch (error) {
       console.error(`[Server] Error handling /agents/${agentId} request:`, error);
       res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ 
+      res.end(JSON.stringify({
         error: 'Internal server error'
       }));
     }
@@ -351,5 +351,20 @@ export class CygnusServer {
    */
   getMetricsCollector(): MetricsCollector {
     return this.metricsCollector;
+  }
+
+  /**
+   * Get the server port
+   * Returns the actual bound port (useful when configured with port 0)
+   */
+  getPort(): number {
+    if (!this.server) {
+      return this.config.port;
+    }
+    const address = this.server.address();
+    if (typeof address === 'object' && address !== null) {
+      return address.port;
+    }
+    return this.config.port;
   }
 }

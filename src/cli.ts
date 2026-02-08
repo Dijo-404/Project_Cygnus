@@ -3,6 +3,7 @@
  * Project Cygnus CLI
  */
 
+import { Keypair } from '@stellar/stellar-sdk';
 import { initialize, getStatus, VERSION, NAME } from './index.js';
 import { AgentService } from './agent-service.js';
 
@@ -23,9 +24,9 @@ async function main() {
       break;
 
     case 'start':
-    case 'serve':
+    case 'serve': {
       const network = (args[1] as 'testnet' | 'mainnet') || 'testnet';
-      
+
       // Initialize system
       await initialize({
         network,
@@ -34,7 +35,19 @@ async function main() {
 
       // Start agent service
       console.log('\n[CLI] Starting agent service...\n');
-      
+
+      // Get or assign secret key
+      let secretKey = process.env.AGENT_SECRET_KEY;
+      if (!secretKey) {
+        console.log('[CLI] ⚠️  No AGENT_SECRET_KEY provided in environment');
+        console.log('[CLI] 🎲 Generating temporary random keypair for this session...');
+        const pair = Keypair.random();
+        secretKey = pair.secret();
+        console.log(`[CLI] Public Key: ${pair.publicKey()}`);
+        console.log(`[CLI] Secret Key: ${secretKey}`);
+        console.log('[CLI] Save this secret key to AGENT_SECRET_KEY to persist this identity.\n');
+      }
+
       agentService = new AgentService({
         agent: {
           characterFile: './agents/characters/example-trader.json',
@@ -46,6 +59,7 @@ async function main() {
             dailyLimit: 5000,
             weeklyLimit: 20000,
           },
+          secretKey,
         },
         server: {
           port: parseInt(process.env.PORT || '3402'),
@@ -62,10 +76,11 @@ async function main() {
       console.log('\nPress Ctrl+C to stop\n');
 
       // Keep process alive
-      await new Promise(() => {});
+      await new Promise(() => { });
       break;
+    }
 
-    case 'status':
+    case 'status': {
       const status = getStatus();
       console.log('System Status:');
       console.log(`  Version: ${status.version}`);
@@ -75,6 +90,7 @@ async function main() {
         console.log(`  ${enabled ? '✓' : '✗'} ${name}`);
       });
       break;
+    }
 
     case 'help':
     default:
@@ -104,22 +120,22 @@ async function main() {
 // Graceful shutdown
 process.on('SIGINT', async () => {
   console.log('\n\n[CLI] Received SIGINT, shutting down gracefully...');
-  
+
   if (agentService) {
     await agentService.stop();
   }
-  
+
   console.log('[CLI] Shutdown complete');
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
   console.log('\n\n[CLI] Received SIGTERM, shutting down gracefully...');
-  
+
   if (agentService) {
     await agentService.stop();
   }
-  
+
   console.log('[CLI] Shutdown complete');
   process.exit(0);
 });
