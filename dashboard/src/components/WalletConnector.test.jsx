@@ -42,7 +42,7 @@ describe('WalletConnector', () => {
 
       // Verify Install_Prompt is visible
       expect(screen.getByText('No wallet detected. Install a Stellar wallet to continue.')).toBeInTheDocument();
-      expect(screen.getByText('Install Freighter →')).toBeInTheDocument();
+      expect(screen.getByText('Install Freighter [ARROW]')).toBeInTheDocument();
     });
 
     it('should NOT display error message when no wallets are detected', async () => {
@@ -64,7 +64,7 @@ describe('WalletConnector', () => {
       });
 
       // Verify error message is NOT visible
-      const errorElements = screen.queryAllByText(/⚠/);
+      const errorElements = screen.queryAllByText(/\[WARN\]/);
       expect(errorElements).toHaveLength(0);
     });
 
@@ -114,7 +114,7 @@ describe('WalletConnector', () => {
       expect(installPrompt).toBeInTheDocument();
 
       // Verify error message is NOT visible (no warning icon)
-      const errorElements = screen.queryAllByText(/⚠/);
+      const errorElements = screen.queryAllByText(/\[WARN\]/);
       expect(errorElements).toHaveLength(0);
 
       // This ensures only ONE message is displayed (the Install_Prompt)
@@ -191,7 +191,7 @@ describe('WalletConnector', () => {
 
       // Verify error message with warning icon is visible
       await waitFor(() => {
-        expect(screen.getByText('⚠')).toBeInTheDocument();
+        expect(screen.getByText('[WARN]')).toBeInTheDocument();
         expect(screen.getByText('Failed to detect wallet providers')).toBeInTheDocument();
       });
     });

@@ -87,7 +87,7 @@ export function TransactionStatusDisplay({ status, onClose }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on Stellar Expert →
+              View on Stellar Expert [ARROW]
             </a>
           </div>
         )}

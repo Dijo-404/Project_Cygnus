@@ -8,7 +8,7 @@ function StatusCards({ status }) {
       label: 'Active Agents',
       value: status.agents.active,
       subvalue: `of ${status.agents.total}`,
-      icon: '🤖',
+      icon: '[AGENT]',
       status: status.agents.active === status.agents.total ? 'success' : 'warning',
       change: '+12%',
       changeType: 'positive',
@@ -30,7 +30,7 @@ function StatusCards({ status }) {
       label: 'Payment Channels',
       value: status.channels.active,
       subvalue: `of ${status.channels.total}`,
-      icon: '⚡',
+      icon: '[CHANNEL]',
       status: 'info',
       change: '+8%',
       changeType: 'positive',
@@ -82,7 +82,7 @@ function StatusCards({ status }) {
 
           <div className="status-card-footer">
             <div className={`status-card-change ${card.changeType}`}>
-              <span>{card.changeType === 'positive' ? '↑' : '↓'}</span>
+              <span>{card.changeType === 'positive' ? '[UP]' : '[DOWN]'}</span>
               <span>{card.change}</span>
             </div>
             <div className="status-card-meta">{card.meta}</div>

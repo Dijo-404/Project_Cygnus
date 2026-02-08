@@ -5,17 +5,17 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AgentManager, AgentConfigWithId } from './AgentManager.js';
-import { AutonomousAgent } from '../agents/AutonomousAgent.js';
-import { StellarClient } from './stellar/StellarClient.js';
-import { DIDManager } from '../protocols/masumi/index.js';
-import { SokosumiCoordinator } from '../protocols/sokosumi/index.js';
+import { AgentManager, AgentConfigWithId } from '../../src/AgentManager.js';
+import { AutonomousAgent } from '../../agents/AutonomousAgent.js';
+import { StellarClient } from '../../src/stellar/StellarClient.js';
+import { DIDManager } from '../../protocols/masumi/index.js';
+import { SokosumiCoordinator } from '../../protocols/sokosumi/index.js';
 
 // Mock dependencies
-vi.mock('../agents/AutonomousAgent.js');
-vi.mock('./stellar/StellarClient.js');
-vi.mock('../protocols/masumi/index.js');
-vi.mock('../protocols/sokosumi/index.js');
+vi.mock('../../agents/AutonomousAgent.js');
+vi.mock('../../src/stellar/StellarClient.js');
+vi.mock('../../protocols/masumi/index.js');
+vi.mock('../../protocols/sokosumi/index.js');
 
 describe('AgentManager', () => {
   let agentManager: AgentManager;
@@ -680,6 +680,382 @@ describe('AgentManager', () => {
       await agentManager.stopAll();
 
       expect(mockAgent.stop).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('fundAgent', () => {
+    it('should return error when agent does not exist', async () => {
+      const result = await agentManager.fundAgent('non-existent', {
+        amount: '100',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('not found');
+    });
+
+    it('should return error when amount is missing', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Missing required parameters');
+    });
+
+    it('should return error when sourcePublicKey is missing', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '100',
+        sourcePublicKey: '',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Missing required parameters');
+    });
+
+    it('should return error when signedTransaction is missing', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '100',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: '',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Missing required parameters');
+    });
+
+    it('should return error for invalid amount (negative)', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '-100',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Invalid amount');
+    });
+
+    it('should return error for invalid amount (zero)', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '0',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Invalid amount');
+    });
+
+    it('should return error for invalid amount (not a number)', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: 'not-a-number',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('Invalid amount');
+    });
+
+    it('should return success with transaction hash and new balance for valid funding', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '100',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.transactionHash).toBeDefined();
+      expect(result.transactionHash).toMatch(/^simulated_tx_/);
+      expect(result.newBalance).toBeDefined();
+      expect(parseFloat(result.newBalance!)).toBeGreaterThan(0);
+    });
+
+    it('should calculate correct new balance after funding', async () => {
+      const configs: AgentConfigWithId[] = [
+        {
+          id: 'agent-1',
+          name: 'Test Agent',
+          publicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+          secretKey: 'SBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+          spendingLimits: {
+            maxSingleTransaction: 1000,
+            dailyLimit: 5000,
+            weeklyLimit: 20000,
+          },
+        },
+      ];
+
+      const mockAgent = {
+        initialize: vi.fn().mockResolvedValue(undefined),
+        getStatus: vi.fn().mockReturnValue({
+          did: 'did:stellar:testnet:agent1',
+          isInitialized: true,
+          isRunning: true,
+          balance: 0,
+          activeLoans: 0,
+          activeEscrows: 0,
+          spending: {
+            daily: { spent: 0, limit: 5000, remaining: 5000, date: '2024-01-01' },
+            weekly: { spent: 0, limit: 20000, remaining: 20000, weekStart: '2024-01-01' },
+            singleTransaction: { limit: 1000 },
+          },
+        }),
+      };
+
+      vi.mocked(AutonomousAgent).mockImplementation(() => mockAgent as any);
+      await agentManager.initialize(configs);
+
+      const result = await agentManager.fundAgent('agent-1', {
+        amount: '50.5',
+        sourcePublicKey: 'GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H',
+        signedTransaction: 'AAAA...',
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.newBalance).toBe('150.5000000'); // 100 (simulated current) + 50.5
     });
   });
 });

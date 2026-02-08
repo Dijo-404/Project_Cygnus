@@ -1,8 +1,8 @@
 /* LoanManagementPanel Styles */
 
 .loan-management-panel {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 24px;
   max-width: 800px;
@@ -20,30 +20,30 @@
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .loan-management-panel h4 {
   margin: 0 0 16px 0;
   font-size: 16px;
   font-weight: 600;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 /* Loading and Error States */
 .loading-message {
   padding: 20px;
   text-align: center;
-  color: #666;
+  color: var(--text-tertiary);
   font-size: 14px;
 }
 
 .error-message {
   padding: 12px;
-  background: #fee;
-  border: 1px solid #fcc;
+  background: rgba(107, 114, 128, 0.1);
+  border: 4px double var(--error);
   border-radius: 6px;
-  color: #c33;
+  color: var(--text-primary);
   font-size: 14px;
   margin-bottom: 16px;
   display: flex;
@@ -55,8 +55,8 @@
   padding: 6px 12px;
   font-size: 13px;
   font-weight: 600;
-  color: #ffffff;
-  background: #e74c3c;
+  color: var(--bg-primary);
+  background: var(--accent-primary);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -64,7 +64,7 @@
 }
 
 .retry-button:hover {
-  background: #c0392b;
+  background: var(--accent-secondary);
 }
 
 /* Create Loan Button */
@@ -72,8 +72,8 @@
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 600;
-  color: #ffffff;
-  background: #4a90e2;
+  color: var(--bg-primary);
+  background: var(--accent-primary);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -81,12 +81,12 @@
 }
 
 .create-loan-button:hover {
-  background: #357abd;
+  background: var(--accent-secondary);
 }
 
 /* Create Loan Form */
 .create-loan-form {
-  background: #f8f9fa;
+  background: var(--bg-tertiary);
   border-radius: 6px;
   padding: 20px;
   margin-bottom: 24px;
@@ -107,7 +107,7 @@
   margin-bottom: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .form-group input,
@@ -115,33 +115,35 @@
   width: 100%;
   padding: 10px;
   font-size: 14px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 6px;
   transition: border-color 0.2s;
   box-sizing: border-box;
-  background: #ffffff;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #4a90e2;
+  border-color: var(--accent-primary);
 }
 
 .form-group input.input-error {
-  border-color: #e74c3c;
+  border: 4px double var(--error);
 }
 
 .form-group input:disabled,
 .form-group select:disabled {
-  background-color: #f5f5f5;
+  background-color: var(--bg-primary);
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .validation-error {
   margin-top: 4px;
   font-size: 12px;
-  color: #e74c3c;
+  color: var(--error);
 }
 
 .submit-loan-button {
@@ -149,9 +151,9 @@
   padding: 12px;
   font-size: 15px;
   font-weight: 600;
-  color: #ffffff;
-  background: #27ae60;
-  border: none;
+  color: var(--bg-primary);
+  background: var(--success);
+  border: 2px solid var(--success);
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -159,11 +161,14 @@
 }
 
 .submit-loan-button:hover:not(:disabled) {
-  background: #229954;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .submit-loan-button:disabled {
-  background: #cccccc;
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-tertiary);
   cursor: not-allowed;
 }
 
@@ -175,9 +180,9 @@
 .no-loans-message {
   padding: 40px;
   text-align: center;
-  color: #999;
+  color: var(--text-tertiary);
   font-size: 14px;
-  background: #f8f9fa;
+  background: var(--bg-tertiary);
   border-radius: 6px;
 }
 
@@ -189,16 +194,16 @@
 
 /* Loan Card */
 .loan-card {
-  background: #ffffff;
-  border: 2px solid #e0e0e0;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   padding: 20px;
   transition: border-color 0.2s;
 }
 
 .loan-card.overdue {
-  border-color: #e74c3c;
-  background: #fff5f5;
+  border: 4px double var(--error);
+  background: rgba(107, 114, 128, 0.08);
 }
 
 .loan-header {
@@ -207,13 +212,13 @@
   align-items: center;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .loan-id {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .loan-status {
@@ -225,23 +230,27 @@
 }
 
 .status-active {
-  background: #d4edda;
-  color: #155724;
+  background: rgba(229, 231, 235, 0.15);
+  color: var(--success);
+  border: 2px solid var(--success);
 }
 
 .status-repaid {
-  background: #cce5ff;
-  color: #004085;
+  background: rgba(209, 213, 219, 0.05);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
 .status-defaulted {
-  background: #f8d7da;
-  color: #721c24;
+  background: rgba(107, 114, 128, 0.08);
+  color: var(--error);
+  border: 4px double var(--error);
 }
 
 .status-liquidated {
-  background: #fff3cd;
-  color: #856404;
+  background: rgba(156, 163, 175, 0.1);
+  color: var(--warning);
+  border: 2px dashed var(--warning);
 }
 
 /* Loan Details */
@@ -253,7 +262,7 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .detail-row:last-child {
@@ -262,20 +271,20 @@
 
 .detail-label {
   font-size: 13px;
-  color: #666;
+  color: var(--text-tertiary);
   font-weight: 500;
 }
 
 .detail-value {
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 /* Next Payment */
 .next-payment {
-  background: #fff9e6;
-  border: 1px solid #ffd966;
+  background: rgba(156, 163, 175, 0.1);
+  border: 2px dashed var(--warning);
   border-radius: 6px;
   padding: 12px;
   margin-bottom: 12px;
@@ -283,7 +292,7 @@
 
 .payment-label {
   font-size: 12px;
-  color: #856404;
+  color: var(--text-secondary);
   font-weight: 600;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -297,23 +306,23 @@
 
 .payment-amount {
   font-size: 16px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 700;
 }
 
 .payment-due {
   font-size: 13px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 /* Loan Complete Message */
 .loan-complete-message {
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
+  background: rgba(229, 231, 235, 0.15);
+  border: 2px solid var(--success);
   border-radius: 6px;
   padding: 12px;
   margin-bottom: 12px;
-  color: #155724;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -332,7 +341,7 @@
   padding: 10px;
   font-size: 14px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--bg-primary);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -340,19 +349,23 @@
 }
 
 .repay-button {
-  background: #27ae60;
+  background: var(--success);
+  border: 2px solid var(--success);
 }
 
 .repay-button:hover {
-  background: #229954;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .liquidate-button {
-  background: #e74c3c;
+  background: var(--error);
+  border: 4px double var(--error);
 }
 
 .liquidate-button:hover {
-  background: #c0392b;
+  background: var(--accent-secondary);
+  border-color: var(--accent-secondary);
 }
 
 /* Responsive Design */

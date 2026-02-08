@@ -2,19 +2,19 @@
   --bg-primary: #0f1117;
   --bg-secondary: #1a1d29;
   --bg-tertiary: #22252f;
-  --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
+  --accent-primary: #d1d5db;
+  --accent-secondary: #9ca3af;
   --text-primary: #ffffff;
   --text-secondary: #9ca3af;
   --text-tertiary: #6b7280;
   --border-color: rgba(255, 255, 255, 0.08);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #ec4899;
-  --chart-4: #14b8a6;
+  --success: #e5e7eb;
+  --warning: #9ca3af;
+  --error: #6b7280;
+  --chart-1: #e5e7eb;
+  --chart-2: #d1d5db;
+  --chart-3: #9ca3af;
+  --chart-4: #6b7280;
 }
 
 * {

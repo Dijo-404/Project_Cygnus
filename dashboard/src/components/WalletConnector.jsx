@@ -93,7 +93,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
       <div className="wallet-connector">
         <div className="wallet-connected">
           <div className="wallet-connected-header">
-            <div className="wallet-connected-icon">✓</div>
+            <div className="wallet-connected-icon">[OK]</div>
             <div className="wallet-connected-info">
               <div className="wallet-connected-label">Connected</div>
               <div className="wallet-connected-provider">
@@ -135,7 +135,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
         {error && (
           <div className="wallet-error">
             <div className="wallet-error-message">
-              <span>⚠</span>
+              <span>[WARN]</span>
               <span>{error}</span>
             </div>
           </div>
@@ -161,7 +161,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
             onClick={() => handleConnect(wallet.name)}
           >
             <div className="wallet-option-icon">
-              {wallet.name === 'freighter' ? '🚀' : '⭐'}
+              {wallet.name === 'freighter' ? '[FREIGHTER]' : '[ALBEDO]'}
             </div>
             <div className="wallet-option-content">
               <div className="wallet-option-name">
@@ -173,7 +173,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
                   : 'Web-based Stellar wallet'}
               </div>
             </div>
-            <div className="wallet-option-arrow">→</div>
+            <div className="wallet-option-arrow">[ARROW]</div>
           </div>
         ))}
       </div>
@@ -189,7 +189,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
             rel="noopener noreferrer"
             className="wallet-install-link"
           >
-            Install Freighter →
+            Install Freighter [ARROW]
           </a>
         </div>
       )}
@@ -197,7 +197,7 @@ export function WalletConnector({ walletService, onConnect, onDisconnect }) {
       {error && (
         <div className="wallet-error">
           <div className="wallet-error-message">
-            <span>⚠</span>
+            <span>[WARN]</span>
             <span>{error}</span>
           </div>
         </div>

@@ -1,0 +1,71 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.ts text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.rs text eol=lf
+
+# Scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+
+# Configuration
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.conf text eol=lf
+*.config text eol=lf
+
+# Web files
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+
+# Docker
+Dockerfile text eol=lf
+*.dockerignore text eol=lf
+
+# Git
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.wasm binary
+*.so binary
+*.dylib binary
+*.dll binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.rar binary
+
+# Fonts
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Exclude files from export
+.gitattributes export-ignore
+.gitignore export-ignore
+.github export-ignore
+tests export-ignore
+*.test.ts export-ignore
+*.spec.ts export-ignore

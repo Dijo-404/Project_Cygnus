@@ -32,14 +32,14 @@
 .logo-icon {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  background: var(--accent-primary);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 18px;
-  color: white;
+  color: var(--bg-primary);
 }
 
 .logo-text {
@@ -75,8 +75,9 @@
 }
 
 .nav-link.active {
-  color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.1);
+  color: var(--text-primary);
+  background: rgba(209, 213, 219, 0.1);
+  border: 1px solid var(--accent-primary);
 }
 
 .header-right {
@@ -95,7 +96,7 @@
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  padding: 8px 16px 8px 36px;
+  padding: 8px 16px 8px 60px;
   color: var(--text-primary);
   font-size: 14px;
   width: 240px;
@@ -110,9 +111,12 @@
 
 .search-icon {
   position: absolute;
-  left: 12px;
+  left: 8px;
   color: var(--text-tertiary);
-  font-size: 16px;
+  font-size: 7px;
+  font-weight: 700;
+  font-family: 'Monaco', 'Courier New', monospace;
+  letter-spacing: -0.1em;
 }
 
 .icon-button {
@@ -127,7 +131,11 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
-  padding: 0;
+  padding: 2px;
+  font-size: 7px;
+  font-weight: 700;
+  font-family: 'Monaco', 'Courier New', monospace;
+  letter-spacing: -0.1em;
 }
 
 .icon-button:hover {
@@ -139,8 +147,8 @@
 }
 
 .wallet-button {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  color: white;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
@@ -151,12 +159,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
 .wallet-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
 }
 
 .wallet-button.connected {
@@ -179,7 +187,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--success);
+  background: var(--text-primary);
   animation: pulse 2s infinite;
 }
 

@@ -1,10 +1,18 @@
 {
   "name": "project-cygnus",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Machine Economy Stack on Stellar blockchain - Autonomous agentic ecosystem for machine-to-machine commerce",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/project-cygnus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/project-cygnus/issues"
+  },
+  "homepage": "https://github.com/yourusername/project-cygnus#readme",
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/cli.ts",
@@ -13,11 +21,15 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "test:unit": "vitest run tests/unit",
     "test:property": "vitest run --grep 'Property'",
     "test:integration": "vitest run tests/integration",
     "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write 'src/**/*.ts'",
-    "clean": "rm -rf dist"
+    "format:check": "prettier --check 'src/**/*.ts'",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "stellar",
@@ -28,7 +40,12 @@
     "autonomous-agents",
     "x402",
     "payment-channels",
-    "decentralized-identity"
+    "decentralized-identity",
+    "defi",
+    "web3",
+    "smart-contracts",
+    "micropayments",
+    "p2p-lending"
   ],
   "author": "Project Cygnus Team",
   "license": "MIT",

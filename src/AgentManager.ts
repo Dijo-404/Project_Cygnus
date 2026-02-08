@@ -44,6 +44,26 @@ export interface AgentStatus {
 }
 
 /**
+ * Fund agent parameters
+ */
+export interface FundAgentParams {
+  amount: string;
+  sourcePublicKey: string;
+  signedTransaction: string;
+}
+
+/**
+ * Fund agent result
+ */
+export interface FundAgentResult {
+  success: boolean;
+  transactionHash?: string;
+  newBalance?: string;
+  error?: string;
+}
+
+
+/**
  * Agent Manager - manages multiple agent instances
  */
 export class AgentManager {
@@ -139,8 +159,8 @@ export class AgentManager {
         activeLoans: status.activeLoans,
         activeEscrows: status.activeEscrows,
         spending: {
-          today: status.spending.today.toString(),
-          thisWeek: status.spending.thisWeek.toString(),
+          today: status.spending.daily.spent.toString(),
+          thisWeek: status.spending.weekly.spent.toString(),
           limits: {
             maxSingleTransaction: config.spendingLimits.maxSingleTransaction.toString(),
             dailyLimit: config.spendingLimits.dailyLimit.toString(),
@@ -243,4 +263,79 @@ export class AgentManager {
   getAgentCount(): number {
     return this.agents.size;
   }
+
+  /**
+   * Fund an agent with XLM from a user wallet
+   */
+  async fundAgent(id: string, params: FundAgentParams): Promise<FundAgentResult> {
+    const agent = this.agents.get(id);
+    
+    if (!agent) {
+      return {
+        success: false,
+        error: `Agent with ID '${id}' not found`,
+      };
+    }
+
+    try {
+      // Validate parameters
+      if (!params.amount || !params.sourcePublicKey || !params.signedTransaction) {
+        return {
+          success: false,
+          error: 'Missing required parameters: amount, sourcePublicKey, and signedTransaction are required',
+        };
+      }
+
+      // Validate amount is a positive number
+      const amountNum = parseFloat(params.amount);
+      if (isNaN(amountNum) || amountNum <= 0) {
+        return {
+          success: false,
+          error: 'Invalid amount: must be a positive number',
+        };
+      }
+
+      // In a real implementation, we would:
+      // 1. Verify the signed transaction
+      // 2. Submit it to the Stellar network
+      // 3. Wait for confirmation
+      // 4. Update the agent's balance
+      
+      // For now, we'll simulate a successful transaction
+      // TODO: Implement actual Stellar transaction submission
+      const transactionHash = `simulated_tx_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      
+      // Simulate getting the new balance
+      // In production, this would query the Stellar network
+      const currentBalance = parseFloat(await this.getAgentBalance(id));
+      const newBalance = (currentBalance + amountNum).toFixed(7);
+
+      console.log(`[AgentManager] Funded agent ${id} with ${params.amount} XLM from ${params.sourcePublicKey}`);
+      console.log(`[AgentManager] Transaction hash: ${transactionHash}`);
+      console.log(`[AgentManager] New balance: ${newBalance} XLM`);
+
+      return {
+        success: true,
+        transactionHash,
+        newBalance,
+      };
+    } catch (error) {
+      console.error(`[AgentManager] Error funding agent ${id}:`, error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error occurred',
+      };
+    }
+  }
+
+  /**
+   * Get agent balance from Stellar network
+   * @private
+   */
+  private async getAgentBalance(id: string): Promise<string> {
+    // In production, this would query the Stellar network
+    // For now, return a simulated balance
+    return '100.0000000';
+  }
 }
+

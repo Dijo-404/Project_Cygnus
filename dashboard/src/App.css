@@ -8,19 +8,19 @@
   --bg-primary: #0f1117;
   --bg-secondary: #1a1d29;
   --bg-tertiary: #22252f;
-  --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
+  --accent-primary: #d1d5db;
+  --accent-secondary: #9ca3af;
   --text-primary: #ffffff;
   --text-secondary: #9ca3af;
   --text-tertiary: #6b7280;
   --border-color: rgba(255, 255, 255, 0.08);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --chart-1: #6366f1;
-  --chart-2: #8b5cf6;
-  --chart-3: #ec4899;
-  --chart-4: #14b8a6;
+  --success: #e5e7eb;
+  --warning: #9ca3af;
+  --error: #6b7280;
+  --chart-1: #e5e7eb;
+  --chart-2: #d1d5db;
+  --chart-3: #9ca3af;
+  --chart-4: #6b7280;
 }
 
 body {
@@ -140,7 +140,7 @@ button {
 button:hover {
   background: var(--accent-secondary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 button:active {
@@ -170,8 +170,8 @@ button.danger {
 }
 
 button.danger:hover {
-  background: #dc2626;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  background: var(--error);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
 }
 
 button.success {
@@ -179,8 +179,8 @@ button.success {
 }
 
 button.success:hover {
-  background: #059669;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  background: var(--success);
+  box-shadow: 0 4px 12px rgba(229, 231, 235, 0.3);
 }
 
 .status-badge {
@@ -194,23 +194,27 @@ button.success:hover {
 }
 
 .status-badge.success {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(229, 231, 235, 0.15);
   color: var(--success);
+  border: 2px solid var(--success);
 }
 
 .status-badge.warning {
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(156, 163, 175, 0.1);
   color: var(--warning);
+  border: 2px dashed var(--warning);
 }
 
 .status-badge.danger {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(107, 114, 128, 0.08);
   color: var(--error);
+  border: 4px double var(--error);
 }
 
 .status-badge.info {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(209, 213, 219, 0.05);
   color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
 .grid-col-3 {
@@ -307,7 +311,7 @@ button.success:hover {
 
 .main-nav button.active {
   background: var(--accent-primary);
-  color: white;
+  color: var(--bg-primary);
   border-color: var(--accent-primary);
 }
 

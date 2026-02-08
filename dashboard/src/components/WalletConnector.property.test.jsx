@@ -76,7 +76,7 @@ describe('WalletConnector - Property-Based Tests', () => {
             const hasInstallPrompt = installPrompt !== null;
 
             // Check for error message (indicated by warning icon)
-            const errorElements = screen.queryAllByText('⚠');
+            const errorElements = screen.queryAllByText('[WARN]');
             const hasErrorMessage = errorElements.length > 0;
 
             // Property: Install_Prompt XOR error message (not both)
@@ -146,7 +146,7 @@ describe('WalletConnector - Property-Based Tests', () => {
             expect(errorDiv).not.toBeInTheDocument();
 
             // Also verify no error message with warning icon is shown
-            const errorElements = screen.queryAllByText('⚠');
+            const errorElements = screen.queryAllByText('[WARN]');
             expect(errorElements).toHaveLength(0);
 
             // Cleanup
@@ -195,7 +195,7 @@ describe('WalletConnector - Property-Based Tests', () => {
               // Wait for detectWallets to complete and error to be set
               await waitFor(() => {
                 expect(mockWalletService.detectWallets).toHaveBeenCalled();
-                const errorElements = screen.queryAllByText('⚠');
+                const errorElements = screen.queryAllByText('[WARN]');
                 expect(errorElements.length).toBeGreaterThan(0);
               }, { timeout: 1000 });
 
@@ -231,7 +231,7 @@ describe('WalletConnector - Property-Based Tests', () => {
                 // Wait for connection attempt and error to be set
                 await waitFor(() => {
                   expect(mockWalletService.connect).toHaveBeenCalled();
-                  const errorElements = screen.queryAllByText('⚠');
+                  const errorElements = screen.queryAllByText('[WARN]');
                   expect(errorElements.length).toBeGreaterThan(0);
                 }, { timeout: 1000 });
               }

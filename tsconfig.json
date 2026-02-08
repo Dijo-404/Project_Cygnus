@@ -23,7 +23,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "tests/unit/AgentManager.test.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

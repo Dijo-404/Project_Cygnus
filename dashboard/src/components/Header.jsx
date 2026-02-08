@@ -48,7 +48,7 @@ export function Header({ walletState, onConnectWallet, onDisconnectWallet }) {
 
         <div className="header-right">
           <div className="search-box">
-            <span className="search-icon">🔍</span>
+            <span className="search-icon">[SEARCH]</span>
             <input
               type="text"
               className="search-input"
@@ -57,11 +57,11 @@ export function Header({ walletState, onConnectWallet, onDisconnectWallet }) {
           </div>
 
           <button className="icon-button" title="Notifications">
-            🔔
+            [NOTIFY]
           </button>
 
           <button className="icon-button" title="Settings">
-            ⚙️
+            [SETTINGS]
           </button>
 
           {walletState.isConnected ? (
