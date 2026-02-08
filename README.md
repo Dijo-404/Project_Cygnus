@@ -62,11 +62,7 @@ flowchart TB
     PROTOCOLS --> CONTRACTS
     CONTRACTS --> STELLAR
 
-    style APP fill:#e3f2fd,stroke:#1976d2
-    style AGENTS fill:#f3e5f5,stroke:#7b1fa2
-    style PROTOCOLS fill:#e8f5e9,stroke:#388e3c
-    style CONTRACTS fill:#fff3e0,stroke:#f57c00
-    style STELLAR fill:#fce4ec,stroke:#c2185b
+
 ```
 
 ### Data Flow
@@ -111,9 +107,7 @@ flowchart LR
 
     INPUT --> PROCESS --> OUTPUT
 
-    style INPUT fill:#e8f5e9,stroke:#4caf50
-    style PROCESS fill:#fff3e0,stroke:#ff9800
-    style OUTPUT fill:#e3f2fd,stroke:#2196f3
+
 ```
 
 ---
@@ -217,9 +211,7 @@ flowchart LR
     MASUMI --> STELLAR
     SOKOSUMI --> STELLAR
 
-    style X402 fill:#e3f2fd,stroke:#1976d2
-    style MASUMI fill:#f3e5f5,stroke:#7b1fa2
-    style SOKOSUMI fill:#e8f5e9,stroke:#388e3c
+
 ```
 
 ### Smart Contracts
